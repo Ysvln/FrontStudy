@@ -61,14 +61,14 @@ async await을 통해 구현하고자 합니다.
 
 // test();
 
-const promise = (text) =>
+const promise = () =>
   new Promise((resolve) => {
     setTimeout(() => {
-      resolve(text);
+      resolve();
     }, 3000);
   });
 
-const test = async (text) => {
+const test = async () => {
   try {
     const result = await promise(console.log("비동기1"));
     const result2 = await promise(console.log("비동기2"));
