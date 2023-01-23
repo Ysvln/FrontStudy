@@ -74,7 +74,7 @@ const test = async () => {
     const result2 = await promise(console.log("비동기2"));
     const result3 = await promise(console.log("비동기3"));
   } catch (err) {
-    console.log(err);
+    console.log("정보를 불러오는데 실패하였습니다.");
   }
 };
 
