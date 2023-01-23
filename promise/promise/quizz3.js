@@ -15,30 +15,67 @@ async await을 통해 구현하고자 합니다.
 
 */
 
-const promise1 = () =>
+// const promise1 = () =>
+//   new Promise((resolve) => {
+//     setTimeout(() => {
+//       console.log("비동기1");
+//       resolve(1);
+//     }, 3000);
+//   });
+
+// const promise2 = () =>
+//   new Promise((resolve) => {
+//     setTimeout(() => {
+//       console.log("비동기2");
+//       resolve(2);
+//     }, 3000);
+//   });
+
+// const promise3 = () =>
+//   new Promise((resolve) => {
+//     setTimeout(() => {
+//       console.log("비동기3");
+//       resolve(3);
+//     }, 3000);
+//   });
+
+// promise1().then((res) => {
+//   promise2().then(() => promise3());
+// });
+
+// const promise = () =>{
+//   new Promise((resolve, reject)=> {
+//     setTimeout(() => {
+//       resolve();
+//     }, 3000);
+//   })
+// }
+
+// const test = async () => {
+//   try {
+//     let result = await promise;
+//   } catch {
+//     console.log("정보를 불러오는데 실패하였습니다.");
+//   }
+// };
+
+// test();
+
+const promise = (text) =>
   new Promise((resolve) => {
     setTimeout(() => {
-      console.log("비동기1");
-      resolve(1);
+      resolve(text);
     }, 3000);
   });
 
-const promise2 = () =>
-  new Promise((resolve) => {
-    setTimeout(() => {
-      console.log("비동기2");
-      resolve(2);
-    }, 3000);
-  });
+const test = async (text) => {
+  try {
+    const result = await promise(console.log("비동기1"));
+    const result2 = await promise(console.log("비동기2"));
+    const result3 = await promise(console.log("비동기3"));
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-const promise3 = () =>
-  new Promise((resolve) => {
-    setTimeout(() => {
-      console.log("비동기3");
-      resolve(3);
-    }, 3000);
-  });
-
-promise1().then((res) => {
-  promise2().then(() => promise3());
-});
+test();
