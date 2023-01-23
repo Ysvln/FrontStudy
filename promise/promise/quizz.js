@@ -34,19 +34,20 @@ const resize = new Promise((resolve, reject) => {
   }, 700);
 });
 
-resize
-  .then((res) => {
-    console.log(res);
-  })
-  .then(() => {
-    console.log("max size");
-  })
-  .then(() => {
-    console.log("이번주 목표까지 15% 남았습니다");
-  });
+// resize
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .then(() => {
+//     console.log("max size");
+//   })
+//   .then(() => {
+//     console.log("이번주 목표까지 15% 남았습니다");
+//   });
 
 /* 심화 *************************************************************************** */
 
+/* 
 async function resize2() {
   console.log("min size");
   let promise = new Promise((resolve, reject) => {
@@ -56,6 +57,19 @@ async function resize2() {
   console.log(result);
   console.log("max size");
   console.log("이번주 목표는 15% 남았습니다");
+}
+
+*/
+
+async function resize2() {
+  try {
+    let result = await resize;
+    console.log(result);
+    console.log("max size");
+    console.log("이번주 목표는 15% 남았습니다");
+  } catch {
+    console.log("에러났을때");
+  }
 }
 
 resize2();
