@@ -35,7 +35,7 @@ console.log("비동기 요청 3")
 기초. 모든 요청 중 단 하나의 요청이라도 실패하면 "결과값을 가지고 오는데 실패하였습니다"를 출력 할 것
 
 심화. 모든 요청 중 일부가 실패했다면 나머지 비동기 요청에 대해서는 정상적으로 console.log를 실행할 것
-      만약 실패하였다면 어느 요청이 실패하였는지 consoe.log로 출력할 것
+      만약 실패하였다면 어느 요청이 실패하였는지 console.log로 출력할 것
 
       ex) "비동기 요청 2 호출 실패"
 
@@ -43,3 +43,49 @@ console.log("비동기 요청 3")
       결과 값으로는 반드시 "정상적으로 실행되었습니다"가 출력되어야한다
       그러나, 3가지 요청이 모두 실패했을 때는 "결과값을 가지고 오는데 실패하였습니다"가 출력되어야한다.
 */
+
+let a = true;
+let b = true;
+let c = false;
+
+const promise1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (a === true) {
+      resolve("비동기 요청 1");
+    } else {
+      reject("비동기 요청 1 호출 실패");
+    }
+  }, 500);
+});
+
+const promise2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (b === true) {
+      resolve("비동기 요청 2");
+    } else {
+      reject("비동기 요청 2 호출 실패");
+    }
+  }, 600);
+});
+
+const promise3 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    if (c === true) {
+      resolve("비동기 요청 3");
+    } else {
+      reject("비동기 요청 3 호출 실패");
+    }
+  }, 700);
+});
+
+/*  기초 ********************************************************************************************************************************************* */
+/* 모든 요청 중 단 하나의 요청이라도 실패하면 "결과값을 가지고 오는데 실패하였습니다" 를 출력 */
+// Promise.all([promise1, promise2, promise3])
+//   .then((result) => console.log(result))
+//   .catch((e) => console.log("결과값을 가지고 오는데 실패하였습니다"));
+
+/*  심화 ********************************************************************************************************************************************* */
+/*모든 요청 중 일부가 실패했다면 나머지 비동기 요청에 대해서는 정상적으로 console.log를 실행할 것 만약 실패하였다면 어느 요청이 실패하였는지 console.log로 출력할 것 */
+Promise.allSettled([promise1, promise2, promise3])
+  .then((result) => console.log(result))
+  .catch((e) => console.error(e));
