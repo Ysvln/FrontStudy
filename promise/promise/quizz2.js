@@ -25,7 +25,7 @@ console.log("비동기 요청 3")
 "정상적으로 실행되었습니다"
 
 
-2. case errer(rejected)
+2. case error(rejected)
 
 "결과값을 가지고 오는데 실패하였습니다"
 
@@ -44,8 +44,8 @@ console.log("비동기 요청 3")
       그러나, 3가지 요청이 모두 실패했을 때는 "결과값을 가지고 오는데 실패하였습니다"가 출력되어야한다.
 */
 
-let a = true;
-let b = true;
+let a = false;
+let b = false;
 let c = false;
 
 const promise1 = new Promise((resolve, reject) => {
@@ -86,6 +86,34 @@ const promise3 = new Promise((resolve, reject) => {
 
 /*  심화 ********************************************************************************************************************************************* */
 /*모든 요청 중 일부가 실패했다면 나머지 비동기 요청에 대해서는 정상적으로 console.log를 실행할 것 만약 실패하였다면 어느 요청이 실패하였는지 console.log로 출력할 것 */
+/*3가지 요청이 모두 실패했을 때는 "결과값을 가지고 오는데 실패하였습니다"가 출력되어야한다.*/
 Promise.allSettled([promise1, promise2, promise3])
-  .then((result) => console.log(result))
+  .then((result) => {
+    /* 모두 실패했을 때*/
+
+    /* 3개만 있는 경우*/
+    /* if (
+       result[0].status === "rejected" &&
+       result[1].status === "rejected" &&
+       result[2].status === "rejected"
+     )
+       return console.log("결과값을 가지고 오는데 실패하였습니다");
+    */
+
+    /* 4개 이상 있는 경우*/
+    if (result.every((item) => item.status === "rejected"))
+      return console.log("결과값을 가지고 오는데 실패하였습니다");
+
+    /* 메세지 출력 */
+    const fulfilled = result
+      .filter((data) => data.status === "fulfilled")
+      .map((data) => data.value);
+
+    const rejected = result
+      .filter((data) => data.status === "rejected")
+      .map((data) => data.reason);
+
+    console.log(fulfilled);
+    console.log(rejected);
+  })
   .catch((e) => console.error(e));
