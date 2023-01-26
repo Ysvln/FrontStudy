@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import StoryCulture from "./component/StoryCulture";
-import StoryMain from "./component/StoryMain";
+import StoryCulture from "./components/StoryCulture";
+import StoryMain from "./components/StoryMain";
 
 function Story() {
   return (
