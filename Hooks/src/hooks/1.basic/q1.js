@@ -26,14 +26,10 @@ function Q1() {
 
   */
 
-    // 문제 1-1 : placeholder의 값을 가져오는 방법 ==> "김성용"으로 직접 작성해야 하는지 혹은 ref로 직접 앨리먼트에 접근해서 가져오는 게 맞는지?
-
     const [checkInputMsg, setCheckInputMsg] = useState(false);
-    // const inputRef = useRef();
-    // console.log(inputRef.current); // ?
 
     function verifyInput(e) {
-        if (e.target.value === '김성용') {
+        if (e.target.value === e.target.placeholder) {
             setCheckInputMsg(true);
         } else {
             setCheckInputMsg(false);
@@ -45,8 +41,6 @@ function Q1() {
     const [buttonText, setButtonText] = useState(false);
 
     function checkButton(e) {
-        console.log(e.target.innerText);
-        console.log(buttonText);
         setButtonText((prev) => !prev);
     }
 
@@ -56,7 +50,6 @@ function Q1() {
             <div>
                 <h2>문제1-1.</h2>
                 <input
-                    // ref={inputRef}
                     type="text"
                     placeholder={'김성용'}
                     style={{ textAlign: 'center' }}

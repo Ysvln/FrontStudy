@@ -2,12 +2,11 @@
 import { useState, useRef, useEffect } from 'react';
 
 function Q2() {
-    const arr = [];
+    const arr = useRef([]);
     const [forceRender, setForceRender] = useState(false);
     const [listValue, setListValue] = useState();
-    const [list, setList] = useState([]);
+    const [list, setList] = useState(false);
     const [listMsg, setListMsg] = useState(false);
-
     const [textColor, setTextColor] = useState(false);
     const textRef = useRef();
 
@@ -19,32 +18,24 @@ function Q2() {
         setForceRender((prev) => !prev);
         console.log(listValue);
         // 조건 - 배열 push
-        // arr.push(listValue);
-        // console.log(arr);
-        setList((list) => [...list, listValue]);
-        console.log(list);
+        arr.current.push(listValue);
+        console.log(arr.current);
     };
 
     // 2. 버튼을 클릭했을 때 저장한 값이 나타남
     const onSubmitList = () => {
-        if (list.length === 0) {
-            setListMsg(false);
-        } else {
-            setListMsg(true);
-        }
+        setList(true);
     };
 
     // 문제 2-2
+    useEffect(() => {
+        textColor
+            ? (textRef.current.style = 'color : black')
+            : (textRef.current.style = 'color : red');
+    }, [textColor]);
 
     const onChangeColor = () => {
         setTextColor((prev) => !prev);
-        console.log(textColor);
-
-        if (textColor === true) {
-            textRef.current.style = 'color : red';
-        } else {
-            textRef.current.style = 'color : black';
-        }
     };
 
     /* 
@@ -99,14 +90,12 @@ function Q2() {
                 </p>
                 <ul>
                     {/* -- list -- */}
-                    {list.map((el) => (
-                        <li>{el}</li>
-                    ))}
+                    {list ? arr.current.map((el) => <li>{el}</li>) : ''}
                 </ul>
             </div>
             <div>
                 <h2>문제 2-2</h2>
-                <p ref={textRef}> 이 문구는 아래 버튼을 누르면 색상이 바뀝니다</p>
+                <p ref={textRef}>이 문구는 아래 버튼을 누르면 색상이 바뀝니다</p>
                 <button onClick={onChangeColor}>변경</button>
             </div>
         </>
