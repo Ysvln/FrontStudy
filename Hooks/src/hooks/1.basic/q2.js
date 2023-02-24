@@ -2,7 +2,8 @@
 import { useState, useRef, useEffect } from 'react';
 
 function Q2() {
-    const arr = useRef([]);
+    const temp = useRef([]);
+    const [newArr, setNewArr] = useState([]);
     const [forceRender, setForceRender] = useState(false);
     const [listValue, setListValue] = useState();
     const [list, setList] = useState(false);
@@ -16,15 +17,21 @@ function Q2() {
     const onAddList = () => {
         // 조건 - 강제 렌더링
         setForceRender((prev) => !prev);
-        console.log(listValue);
+        // console.log(listValue);
         // 조건 - 배열 push
-        arr.current.push(listValue);
-        console.log(arr.current);
+        temp.current.push(listValue);
+        console.log('추가', temp.current);
     };
 
     // 2. 버튼을 클릭했을 때 저장한 값이 나타남
     const onSubmitList = () => {
         setList(true);
+        setListMsg(true);
+        setNewArr([...temp.current]);
+        console.log('제출', newArr);
+
+        // 추가하고 제출 => 다시 추가할 때마다 (제출 안 눌렀는데) 하단 리스트 업데이트 되는 문제
+        // 배열을 하나 더 만들어서 업데이트 하는 방식으로 수정
     };
 
     // 문제 2-2
@@ -90,7 +97,7 @@ function Q2() {
                 </p>
                 <ul>
                     {/* -- list -- */}
-                    {list ? arr.current.map((el) => <li>{el}</li>) : ''}
+                    {list ? newArr.map((el) => <li>{el}</li>) : ''}
                 </ul>
             </div>
             <div>
